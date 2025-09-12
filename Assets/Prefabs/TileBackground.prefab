@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2008639103, guid: 0135e8b2b5b3f364a977c1dbf5d24ea4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6754716, g: 0.6754716, b: 0.6754716, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,10 +97,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5414330dc12f8a343815f06b33529008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dots:
-  - {fileID: 1244291456016688786, guid: 1412bcd6e5b9d5247a2aa925f02f5638, type: 3}
-  - {fileID: 7000475141834344733, guid: bc25ebbd11f84014bbde2fa1b8a7ef4c, type: 3}
-  - {fileID: 54510115273644177, guid: ada6b5af3fb06fc4da9c059ea882bd8b, type: 3}
-  - {fileID: 3551486371463722766, guid: abfecc1f1969cc84eaf2410467a83ba2, type: 3}
-  - {fileID: 6521305084045625283, guid: 2b7579040be54ca43ba50da699444cd8, type: 3}
-  - {fileID: 1883252022824530958, guid: 245771c9bce1bbf4b8a2675379e8bfd5, type: 3}
