@@ -11,6 +11,7 @@ public enum GameState
 public class Board : MonoBehaviour
 {
     public GameState currentState = GameState.move;
+    private FindMatch findMatch;
 
     public int width;
     public int height;
@@ -18,12 +19,15 @@ public class Board : MonoBehaviour
 
     public GameObject tilePrefab;   
     public GameObject[] dots;
+    public GameObject destroyEffect;
     private BackgroundTile[,] allTiles;
     public GameObject[,] allDots;
 
     // Start is called before the first frame update
     void Start()
     {
+        findMatch = FindObjectOfType<FindMatch>();
+
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
         SetUp();
@@ -102,6 +106,11 @@ public class Board : MonoBehaviour
     {
         if (allDots[column, row].GetComponent<Dot>().isMatched)
         {
+            findMatch.currentMatches.Remove(allDots[column, row]);
+
+            GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);
+            Destroy(particle, 0.5f);
+            
             Destroy(allDots[column, row]);
             allDots[column, row] = null;
         }
@@ -123,6 +132,8 @@ public class Board : MonoBehaviour
 
     private IEnumerator DecreaseRowCo()
     {
+        yield return new WaitForSeconds(0.5f);
+
         int nullCount = 0;
 
         for (int i = 0; i < width; i++)
@@ -187,11 +198,11 @@ public class Board : MonoBehaviour
     {
         RefillBoard();
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(0.5f);
 
         while (MatchesOnboard())
         {
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(0.5f);
             DestroyMatches();
         }
         yield return new WaitForSeconds(.5f);

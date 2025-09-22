@@ -15,7 +15,7 @@ public class Dot : MonoBehaviour
 
     public bool isMatched = false;
 
-
+    private FindMatch findMatch;
     private Board board;
     private GameObject otherDot;
 
@@ -23,28 +23,42 @@ public class Dot : MonoBehaviour
     private Vector2 finalTouchPos;
     private Vector2 tempPos;
 
+    [Header("Swipe Stuff")]
     public float swipeAngle = 0;
     public float swipeResist = 1f;
+
+    [Header("Powerup Stuff")]
+    public bool isColumnBomb;
+    public bool isRowBomb;
+    public GameObject rowArrow;
+    public GameObject columnArrow;
 
     // Start is called before the first frame update
     void Start()
     {
+        isColumnBomb = false;
+        isRowBomb = false;
+
         board = FindObjectOfType<Board>();
+        findMatch = FindObjectOfType<FindMatch>();
 
-        //targetX = (int)transform.position.x;
-        //targetY = (int)transform.position.y;
-
-        //column = targetX;
-        //row = targetY;
-
-        //previousColumn = column;
-        //previousRow = row;
     }
+
+    // For testing and debug only
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isRowBomb = true;
+            GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
+    }
+
 
     //Update is called once per frame
     void Update()
     {
-        FindMatches();
         if (isMatched)
         {
             SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
@@ -63,6 +77,7 @@ public class Dot : MonoBehaviour
             {
                 board.allDots[column, row] = this.gameObject;
             }
+            findMatch.FindAllMatches();
         }
         else
         {
@@ -80,6 +95,8 @@ public class Dot : MonoBehaviour
             {
                 board.allDots[column, row] = this.gameObject;
             }
+
+            findMatch.FindAllMatches();
         }
         else
         {

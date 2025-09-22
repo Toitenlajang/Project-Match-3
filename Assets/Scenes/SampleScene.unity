@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 508238063}
+  - component: {fileID: 508238064}
   m_Layer: 0
   m_Name: Match Finder
   m_TagString: Untagged
@@ -148,12 +149,25 @@ Transform:
   m_GameObject: {fileID: 508238062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5646596, y: 14.092904, z: 0.04520908}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &508238064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508238062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d8eb5325f58b84f8f32a63362c280c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMatches: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +204,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.248309, g: 0.2898515, b: 0.3509434, a: 0}
+  m_BackGroundColor: {r: 0.14716971, g: 0.1418938, b: 0.1418938, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -287,6 +301,7 @@ MonoBehaviour:
   - {fileID: 3551486371463722766, guid: abfecc1f1969cc84eaf2410467a83ba2, type: 3}
   - {fileID: 6521305084045625283, guid: 2b7579040be54ca43ba50da699444cd8, type: 3}
   - {fileID: 1883252022824530958, guid: 245771c9bce1bbf4b8a2675379e8bfd5, type: 3}
+  destroyEffect: {fileID: 7960283798042316964, guid: 3a61b0f313344d14fbfb81a40691aff6, type: 3}
 --- !u!4 &1053386707
 Transform:
   m_ObjectHideFlags: 0

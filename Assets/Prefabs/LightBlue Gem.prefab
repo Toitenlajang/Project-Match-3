@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3350813168036778792}
   - component: {fileID: 2342402666096312257}
-  - component: {fileID: -8249538616588746037}
   - component: {fileID: 5741747212167021478}
+  - component: {fileID: 4502437500346164509}
   m_Layer: 0
   m_Name: LightBlue Gem
   m_TagString: Light Blue Dot
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: -259072293
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1321289521, guid: 0135e8b2b5b3f364a977c1dbf5d24ea4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e77cffd5be985a543916cb22e21b534a, type: 3}
+  m_Color: {r: 0.27058822, g: 0.7372549, b: 0.71507996, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,8 +86,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-8249538616588746037
-BoxCollider2D:
+--- !u!114 &5741747212167021478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54510115273644177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90403699d203d2c4b9de106e74466d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  column: 0
+  row: 0
+  targetX: 0
+  targetY: 0
+  previousColumn: 0
+  previousRow: 0
+  isMatched: 0
+  swipeAngle: 0
+  swipeResist: 1
+  isColumnBomb: 0
+  isRowBomb: 0
+  rowArrow: {fileID: 1547275427471666686, guid: 0458dd2071bf69c4fbd4468d25e1a5b9, type: 3}
+  columnArrow: {fileID: 4375191127456377307, guid: bfda8ae409bbb42438067284e133b1c3, type: 3}
+--- !u!58 &4502437500346164509
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,34 +143,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0016547441, y: 0.0049649477}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9230769, y: 0.9230769}
-    newSize: {x: 0.48, y: 0.48}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.9334543, y: 0.9268348}
-  m_EdgeRadius: 0
---- !u!114 &5741747212167021478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54510115273644177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90403699d203d2c4b9de106e74466d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  column: 0
-  row: 0
-  targetX: 0
-  targetY: 0
-  isMatched: 0
-  swipeAngle: 0
+  m_Radius: 0.5
