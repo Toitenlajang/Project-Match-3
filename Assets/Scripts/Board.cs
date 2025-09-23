@@ -20,8 +20,11 @@ public class Board : MonoBehaviour
     public GameObject tilePrefab;   
     public GameObject[] dots;
     public GameObject destroyEffect;
-    private BackgroundTile[,] allTiles;
     public GameObject[,] allDots;
+
+    public Dot currentDot;
+
+    private BackgroundTile[,] allTiles;
 
     // Start is called before the first frame update
     void Start()

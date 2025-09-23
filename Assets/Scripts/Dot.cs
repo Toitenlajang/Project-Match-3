@@ -106,7 +106,6 @@ public class Dot : MonoBehaviour
             
         }
     }
-
     public IEnumerator CheckMoveCo()
     {
         yield return new WaitForSeconds(.5f);
@@ -120,13 +119,15 @@ public class Dot : MonoBehaviour
                 column = previousColumn;
 
                 yield return new WaitForSeconds(.5f);
+
+                board.currentDot = null;
                 board.currentState = GameState.move;
             }
             else
             {
                 board.DestroyMatches();  
             }
-            otherDot = null;
+            //otherDot = null;
         }
         
 
@@ -156,10 +157,12 @@ public class Dot : MonoBehaviour
             swipeAngle = Mathf.Atan2(finalTouchPos.y - firstTouchPos.y, finalTouchPos.x - firstTouchPos.x) * 180 / Mathf.PI;
             MovePieces();
             board.currentState = GameState.wait;
+            board.currentDot = this;
         }
         else
         {
             board.currentState = GameState.move;
+            
         }
         
     }
