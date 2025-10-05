@@ -17,7 +17,7 @@ public class Dot : MonoBehaviour
 
     private FindMatch findMatch;
     private Board board;
-    private GameObject otherDot;
+    public GameObject otherDot;
 
     private Vector2 firstTouchPos;
     private Vector2 finalTouchPos;
@@ -45,25 +45,15 @@ public class Dot : MonoBehaviour
     }
 
     // For testing and debug only
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            isRowBomb = true;
-            GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
-            arrow.transform.parent = this.transform;
-        }
-    }
-
 
     //Update is called once per frame
     void Update()
     {
-        if (isMatched)
-        {
-            SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
-            mySprite.color = new Color(0f, 0f, 0f, .2f);
-        }
+        //if (isMatched)
+        //{
+        //    SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
+        //    mySprite.color = new Color(0f, 0f, 0f, .2f);
+        //}
 
         targetX = column;
         targetY = row;
@@ -149,7 +139,6 @@ public class Dot : MonoBehaviour
         }
         
     }
-
     void CalculateAngle()
     {
         if(Mathf.Abs(finalTouchPos.y - firstTouchPos.y) > swipeResist || Mathf.Abs(finalTouchPos.x - firstTouchPos.x) > swipeResist)
@@ -239,5 +228,18 @@ public class Dot : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void MakeRowBomb()
+    {
+        isRowBomb = true;
+        GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
+        arrow.transform.parent = this.transform;
+    }
+    public void MakeColumnBomb()
+    {
+        isColumnBomb = true;
+        GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
+        arrow.transform.parent = this.transform;
     }
 }

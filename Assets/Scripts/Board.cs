@@ -109,6 +109,12 @@ public class Board : MonoBehaviour
     {
         if (allDots[column, row].GetComponent<Dot>().isMatched)
         {
+            // How many elements are in the matched pieces list form findmatches ?
+            if(findMatch.currentMatches.Count == 4 || findMatch.currentMatches.Count == 7)
+            {
+                findMatch.CheckBomb();
+            }
+
             findMatch.currentMatches.Remove(allDots[column, row]);
 
             GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);
@@ -132,7 +138,6 @@ public class Board : MonoBehaviour
         }
         StartCoroutine(DecreaseRowCo());
     }
-
     private IEnumerator DecreaseRowCo()
     {
         yield return new WaitForSeconds(0.5f);
@@ -158,7 +163,6 @@ public class Board : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         StartCoroutine(FillBoardCo());
     }
-
     private void RefillBoard()
     {
         for(int i = 0; i< width; i++)
@@ -178,7 +182,6 @@ public class Board : MonoBehaviour
             }
         }
     }
-
     private bool MatchesOnboard()
     {
         for (int i = 0; i < width; i++)
@@ -196,7 +199,6 @@ public class Board : MonoBehaviour
         }
         return false;
     }
-
     private IEnumerator FillBoardCo()
     {
         RefillBoard();
@@ -208,6 +210,9 @@ public class Board : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             DestroyMatches();
         }
+
+        findMatch.currentMatches.Clear();
+        currentDot = null;
         yield return new WaitForSeconds(.5f);
         currentState = GameState.move;
     }

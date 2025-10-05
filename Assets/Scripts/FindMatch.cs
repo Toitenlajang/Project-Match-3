@@ -160,4 +160,53 @@ public class FindMatch : MonoBehaviour
         }
         return dots;
     }
+
+    public void CheckBomb()
+    {
+        // Did the player move something
+        if(board.currentDot != null)
+        {
+            //is the piece they move matched
+            if (board.currentDot.isMatched)
+            {
+                //Make it unmatched
+                board.currentDot.isMatched = false;
+                //Decide what kind of bomb to make
+                int typeOfBomb = Random.Range(0, 100);
+                if (typeOfBomb < 50)
+                {
+                    //Make a row bomb
+                    board.currentDot.MakeRowBomb();
+                }
+                else if (typeOfBomb >= 50)
+                {
+                    //Make a column bomb
+                    board.currentDot.MakeColumnBomb();
+                }
+            }
+            // is other piece matched ?
+            else if (board.currentDot.otherDot != null)
+            {
+                Dot otherDot = board.currentDot.otherDot.GetComponent<Dot>();
+                //Is otherDot matched ?
+                if (otherDot.isMatched)
+                {
+                    //make it unmatched
+                    otherDot.isMatched = false;
+                    // Decide what kind of bomb to make
+                    int typeOfBomb = Random.Range(0, 100);
+                    if (typeOfBomb < 50)
+                    {
+                        //Make a row bomb
+                        otherDot.MakeRowBomb();
+                    }
+                    else if (typeOfBomb >= 50)
+                    {
+                        //Make a column bomb
+                        otherDot.MakeColumnBomb();
+                    }
+                }
+            }
+        }
+    }
 }
