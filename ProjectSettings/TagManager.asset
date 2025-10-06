@@ -17,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Effect
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Tiles
     uniqueID: 4035895003
+    locked: 0
+  - name: Effect
+    uniqueID: 3160599421
     locked: 0
