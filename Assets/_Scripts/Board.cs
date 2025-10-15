@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 
 public enum GameState 
@@ -115,8 +116,6 @@ public class Board : MonoBehaviour
                 findMatch.CheckBomb();
             }
 
-            findMatch.currentMatches.Remove(allDots[column, row]);
-
             GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);
             Destroy(particle, 0.5f);
             
@@ -136,6 +135,7 @@ public class Board : MonoBehaviour
                 }
             }
         }
+        findMatch.currentMatches.Clear();
         StartCoroutine(DecreaseRowCo());
     }
     private IEnumerator DecreaseRowCo()

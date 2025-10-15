@@ -503,7 +503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   width: 8
-  height: 8
+  height: 10
   offSet: 10
   tilePrefab: {fileID: 2381958477985530945, guid: 8473d5b4f4a57f5498e7247e139be43d, type: 3}
   dots:

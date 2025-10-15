@@ -32,6 +32,8 @@ public class Dot : MonoBehaviour
     public bool isRowBomb;
     public GameObject rowArrow;
     public GameObject columnArrow;
+    public bool isColorBomb;
+    public GameObject colorBomb;
 
     // Start is called before the first frame update
     void Start()
@@ -45,16 +47,19 @@ public class Dot : MonoBehaviour
     }
 
     // For testing and debug only
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isColorBomb = true;
+            GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
+            color.transform.parent = this.transform;
+        }
+    }
 
     //Update is called once per frame
     void Update()
     {
-        //if (isMatched)
-        //{
-        //    SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
-        //    mySprite.color = new Color(0f, 0f, 0f, .2f);
-        //}
-
         targetX = column;
         targetY = row;
 
@@ -98,7 +103,19 @@ public class Dot : MonoBehaviour
     }
     public IEnumerator CheckMoveCo()
     {
-        yield return new WaitForSeconds(.5f);
+        if (isColorBomb)
+        {
+            //This piece is a color bomb and the other piece is the color to destroy
+            findMatch.MatchPiecesOfColor(otherDot.tag);
+            isMatched = true;
+        }
+        else if (otherDot.GetComponent<Dot>().isColorBomb)
+        {
+            //the other piece is a color bomb and this piece is the color to destroy
+            findMatch.MatchPiecesOfColor(this.gameObject.tag);
+            otherDot.GetComponent<Dot>().isMatched = true;
+        }
+            yield return new WaitForSeconds(.5f);
         if (otherDot != null)
         {
             if (!isMatched && !otherDot.GetComponent<Dot>().isMatched)
@@ -117,7 +134,6 @@ public class Dot : MonoBehaviour
             {
                 board.DestroyMatches();  
             }
-            //otherDot = null;
         }
         
 
