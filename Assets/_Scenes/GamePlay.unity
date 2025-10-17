@@ -204,7 +204,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.14716971, g: 0.1418938, b: 0.1418938, a: 0}
+  m_BackGroundColor: {r: 0.18679237, g: 1, b: 0.7032531, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -254,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.49, y: 6.61, z: -10}
+  m_LocalPosition: {x: 3.49, y: 5.42, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -503,11 +503,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   width: 8
-  height: 10
+  height: 9
   offSet: 10
   tilePrefab: {fileID: 2381958477985530945, guid: 8473d5b4f4a57f5498e7247e139be43d, type: 3}
   dots:
-  - {fileID: 1244291456016688786, guid: 1412bcd6e5b9d5247a2aa925f02f5638, type: 3}
   - {fileID: 7000475141834344733, guid: bc25ebbd11f84014bbde2fa1b8a7ef4c, type: 3}
   - {fileID: 54510115273644177, guid: ada6b5af3fb06fc4da9c059ea882bd8b, type: 3}
   - {fileID: 3551486371463722766, guid: abfecc1f1969cc84eaf2410467a83ba2, type: 3}

@@ -110,10 +110,12 @@ MonoBehaviour:
   swipeResist: 1
   isColumnBomb: 0
   isRowBomb: 0
+  isColorBomb: 0
+  isAdjacentBomb: 0
   rowArrow: {fileID: 1547275427471666686, guid: 0458dd2071bf69c4fbd4468d25e1a5b9, type: 3}
   columnArrow: {fileID: 4375191127456377307, guid: bfda8ae409bbb42438067284e133b1c3, type: 3}
-  isColorBomb: 0
   colorBomb: {fileID: 6962575617442733343, guid: a14a5f4dca1d5674399e69e59f1b8c1b, type: 3}
+  adjacentMarker: {fileID: 4864601627938392196, guid: 9186ce56898c186488dda1f2f2ab5cc6, type: 3}
 --- !u!58 &1767915140928293852
 CircleCollider2D:
   m_ObjectHideFlags: 0

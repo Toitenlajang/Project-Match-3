@@ -30,16 +30,21 @@ public class Dot : MonoBehaviour
     [Header("Powerup Stuff")]
     public bool isColumnBomb;
     public bool isRowBomb;
+    public bool isColorBomb;
+    public bool isAdjacentBomb;
+
     public GameObject rowArrow;
     public GameObject columnArrow;
-    public bool isColorBomb;
     public GameObject colorBomb;
+    public GameObject adjacentMarker;
 
     // Start is called before the first frame update
     void Start()
     {
         isColumnBomb = false;
         isRowBomb = false;
+        isColorBomb = false;
+        isAdjacentBomb = false;
 
         board = FindObjectOfType<Board>();
         findMatch = FindObjectOfType<FindMatch>();
@@ -49,12 +54,7 @@ public class Dot : MonoBehaviour
     // For testing and debug only
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            isColorBomb = true;
-            GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
-            color.transform.parent = this.transform;
-        }
+
     }
 
     //Update is called once per frame
@@ -167,7 +167,6 @@ public class Dot : MonoBehaviour
         else
         {
             board.currentState = GameState.move;
-            
         }
         
     }
@@ -257,5 +256,17 @@ public class Dot : MonoBehaviour
         isColumnBomb = true;
         GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
         arrow.transform.parent = this.transform;
+    }
+    public void MakeColorBomb()
+    {
+        isColorBomb = true;
+        GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
+        color.transform.parent = this.transform;
+    }
+    public void MakeAdjacentBomb()
+    {
+        isAdjacentBomb = true;
+        GameObject marker = Instantiate(adjacentMarker, transform.position, Quaternion.identity);
+        marker.transform.parent = this.transform;
     }
 }
