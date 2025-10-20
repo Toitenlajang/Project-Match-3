@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
-
 
 public enum GameState 
 { 
@@ -27,13 +27,24 @@ public class Board : MonoBehaviour
 
     private BackgroundTile[,] allTiles;
 
+    private ScoreManager scoreManager;
+
+    public int basePieceValue = 20;
+    public int streakValue = 1;
+    public int scoreGoals;
+
+    public float refillDelay = 0.5f;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        scoreManager = FindObjectOfType<ScoreManager>();
         findMatch = FindObjectOfType<FindMatch>();
 
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
+
         SetUp();
     }
 
@@ -140,21 +151,18 @@ public class Board : MonoBehaviour
             {
                 //Make a color bomb
                 //Is the current dot matched
-                if (currentDot != null)
+                if (currentDot != null && currentDot.isMatched)
                 {
-                    if (currentDot.isMatched)
+                    if (!currentDot.isColorBomb)
                     {
-                        if (!currentDot.isColorBomb)
-                        {
-                            currentDot.isMatched = false;
-                            currentDot.MakeColorBomb();
-                        }
+                        currentDot.isMatched = false;
+                        currentDot.MakeColorBomb();
                     }
                 }
-                else if (currentDot.otherDot != null)
+                else if (currentDot != null && currentDot.otherDot != null)
                 {
                     Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
-                    if (otherDot.isMatched)
+                    if (otherDot != null && otherDot.isMatched)
                     {
                         if (!otherDot.isColorBomb)
                         {
@@ -169,21 +177,18 @@ public class Board : MonoBehaviour
             {
                 //Make a adjacent bomb
                 //Is the current dot matched
-                if (currentDot != null)
+                if (currentDot != null && currentDot.isMatched)
                 {
-                    if (currentDot.isMatched)
+                    if (!currentDot.isAdjacentBomb)
                     {
-                        if (!currentDot.isAdjacentBomb)
-                        {
-                            currentDot.isMatched = false;
-                            currentDot.MakeAdjacentBomb();
-                        }
+                        currentDot.isMatched = false;
+                        currentDot.MakeAdjacentBomb();
                     }
                 }
-                else if(currentDot.otherDot != null)
+                else if (currentDot != null && currentDot.otherDot != null)
                 {
                     Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
-                    if (otherDot.isMatched)
+                    if (otherDot != null && otherDot.isMatched)
                     {
                         if (!otherDot.isAdjacentBomb)
                         {
@@ -209,6 +214,9 @@ public class Board : MonoBehaviour
             Destroy(particle, 0.5f);
             
             Destroy(allDots[column, row]);
+
+            scoreManager.IncreaseScore(basePieceValue * streakValue);
+
             allDots[column, row] = null;
         }
     }
@@ -249,7 +257,7 @@ public class Board : MonoBehaviour
             }
             nullCount = 0;
         }
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(refillDelay * 0.5f);
         StartCoroutine(FillBoardCo());
     }
     private void RefillBoard()
@@ -262,6 +270,16 @@ public class Board : MonoBehaviour
                 {
                     Vector2 tempPos = new Vector2(i, j + offSet);
                     int dotToUse = Random.Range(0, dots.Length);
+
+                    int maxIterations = 0;
+                    while(MatchesAt(i, j, dots[dotToUse]) && maxIterations < 100)
+                    {
+                        maxIterations++;
+                        dotToUse = Random.Range(0, dots.Length);
+                    }
+
+                    maxIterations = 0;
+
                     GameObject piece = Instantiate(dots[dotToUse], tempPos, Quaternion.identity);
                     allDots[i, j] = piece;
 
@@ -270,6 +288,31 @@ public class Board : MonoBehaviour
                 }
             }
         }
+    }
+    private IEnumerator FillBoardCo()
+    {
+        RefillBoard();
+
+        yield return new WaitForSeconds(refillDelay);
+
+        while (MatchesOnboard())
+        {
+            streakValue ++;
+            DestroyMatches();
+            yield return new WaitForSeconds(2 * refillDelay);
+        }
+
+        findMatch.currentMatches.Clear();
+        currentDot = null;
+
+        if (IsDeadLocked())
+        {
+            Debug.Log("Deadlocked !!!");
+        }
+
+        yield return new WaitForSeconds(refillDelay);
+        currentState = GameState.move;
+        streakValue = 1;
     }
     private bool MatchesOnboard()
     {
@@ -288,21 +331,92 @@ public class Board : MonoBehaviour
         }
         return false;
     }
-    private IEnumerator FillBoardCo()
+    private void SwitchPieces(int column, int row, Vector2 direction)
     {
-        RefillBoard();
+        //Take the second pieces and save it in a holder
+        GameObject holder = allDots[column + (int)direction.x, row + (int)direction.y] as GameObject;
 
-        yield return new WaitForSeconds(0.5f);
+        //Switching the first dot to be second position
+        allDots[column + (int)direction.x, row + (int)direction.y] = allDots[column, row];
 
-        while (MatchesOnboard())
+        //Set the first dot to be the second dot
+        allDots[column, row] = holder;
+    }
+    private bool CheckForMatches()
+    {
+        for (int i = 0; i < width; i++)
         {
-            yield return new WaitForSeconds(0.5f);
-            DestroyMatches();
+            for (int j = 0; j < width; j++)
+            {
+                if (allDots[i, j] != null)
+                {
+                    // Make Sure that one and two to the right are in the board
+                    if(i < width - 2)
+                    {
+                        //Check if the dots to the right and two to the right exits
+                        if (allDots[i + 1, j] != null && allDots[i + 2, j] != null)
+                        {
+                            if (allDots[i + 1, j].tag == allDots[i, j].tag
+                                    && allDots[i + 2, j].tag == allDots[i, j].tag)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    if(j < height - 2)
+                    {
+                        //Check if the dots above exits
+                        if (allDots[i, j + 1] != null && allDots[i, j + 2] != null)
+                        {
+                            if (allDots[i, j + 1].tag == allDots[i, j].tag
+                              && allDots[i, j + 2].tag == allDots[i, j].tag)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    private bool SwitchAndCheck(int column, int row, Vector2 direction)
+    {
+        SwitchPieces(column, row, direction);
+        if (CheckForMatches())
+        {
+            SwitchPieces(column, row, direction);
+            return true;
+        }
+        SwitchPieces(column, row, direction);
+        return false;
+    }
+    private bool IsDeadLocked()
+    {
+        for(int i = 0; i < width; i++)
+        {
+            for(int j = 0; j< height; j++)
+            {
+                if (allDots[i, j] != null)
+                {
+                    if(i < width - 1)
+                    {
+                        if(SwitchAndCheck(i, j, Vector2.right))
+                        {
+                            return false;
+                        }
+                    }
+                    if(j < height - 1)
+                    {
+                        if (SwitchAndCheck(i, j, Vector2.up))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
         }
 
-        findMatch.currentMatches.Clear();
-        currentDot = null;
-        yield return new WaitForSeconds(.5f);
-        currentState = GameState.move;
+        return true;
     }
 }
