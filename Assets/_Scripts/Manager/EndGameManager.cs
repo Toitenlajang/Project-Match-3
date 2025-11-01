@@ -158,24 +158,11 @@ public class EndGameManager : MonoBehaviour
     }
 
     // Public methods for UI buttons
-    public void RestartLevel()
+    public void ContinueButton()
     {
         // Reload current scene
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
-    }
-
-    public void LoadNextLevel()
-    {
-        // Load next level (you'll need to implement level tracking)
-        int currentSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneIndex + 1);
-    }
-
-    public void ReturnToMainMenu()
-    {
-        // Load main menu scene (adjust name as needed)
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

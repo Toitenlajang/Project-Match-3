@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BackgroundTile : MonoBehaviour
 {
-
     private Vector2 targetPosition;
     private bool isMoving = false;
 

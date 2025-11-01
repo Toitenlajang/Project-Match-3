@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3350813168036778792}
   - component: {fileID: 2342402666096312257}
-  - component: {fileID: 5741747212167021478}
   - component: {fileID: 4502437500346164509}
+  - component: {fileID: 1885428179474444099}
   m_Layer: 0
   m_Name: LightBlue Gem
   m_TagString: Light Blue Dot
@@ -86,36 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5741747212167021478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54510115273644177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90403699d203d2c4b9de106e74466d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  column: 0
-  row: 0
-  targetX: 0
-  targetY: 0
-  previousColumn: 0
-  previousRow: 0
-  isMatched: 0
-  otherDot: {fileID: 0}
-  swipeAngle: 0
-  swipeResist: 1
-  isColumnBomb: 0
-  isRowBomb: 0
-  isColorBomb: 0
-  isAdjacentBomb: 0
-  rowArrow: {fileID: 1547275427471666686, guid: 0458dd2071bf69c4fbd4468d25e1a5b9, type: 3}
-  columnArrow: {fileID: 4375191127456377307, guid: bfda8ae409bbb42438067284e133b1c3, type: 3}
-  colorBomb: {fileID: 6962575617442733343, guid: a14a5f4dca1d5674399e69e59f1b8c1b, type: 3}
-  adjacentMarker: {fileID: 4864601627938392196, guid: 9186ce56898c186488dda1f2f2ab5cc6, type: 3}
 --- !u!58 &4502437500346164509
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +121,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1885428179474444099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54510115273644177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc180fa79d1b28488db8d508ebb2b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  column: 0
+  row: 0
+  targetX: 0
+  targetY: 0
+  previousColumn: 0
+  previousRow: 0
+  isMatched: 0
+  otherDot: {fileID: 0}
+  swipeAngle: 0
+  swipeResist: 1
+  isColumnBomb: 0
+  isRowBomb: 0
+  isColorBomb: 0
+  isAdjacentBomb: 0
+  rowArrow: {fileID: 1547275427471666686, guid: 0458dd2071bf69c4fbd4468d25e1a5b9, type: 3}
+  columnArrow: {fileID: 4375191127456377307, guid: bfda8ae409bbb42438067284e133b1c3, type: 3}
+  colorBomb: {fileID: 6962575617442733343, guid: a14a5f4dca1d5674399e69e59f1b8c1b, type: 3}
+  adjacentMarker: {fileID: 4864601627938392196, guid: 9186ce56898c186488dda1f2f2ab5cc6, type: 3}
